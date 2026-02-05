@@ -1,0 +1,85 @@
+<nav class="devtoolnavbar navbar navbar-expand-lg navbar-dark fixed-top"
+     role="navigation">
+  <a href="{% url 'admin-dashboard' %}" class="navbar-brand">ASSESSMENT</a>
+  <button class="navbar-toggler"
+          data-target="#devtoolnavigation"
+          data-control="navigation"
+          data-toggle="collapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="devtoolnavigation">
+    <ul class="nav navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle"
+           data-toggle="dropdown"
+           id="assessment-menu"
+           href="#"
+           role="button"
+           aria-haspopup="true"
+           aria-expanded="false">Assessment</a>
+        <div class="dropdown-menu" aria-lableledby="assessment-menu">
+          <a class="dropdown-item" href="{% url 'assessment-createedit' %}">Create/Edit</a>
+          <a class="dropdown-item" href="{% url 'assessment-assigncandidate' %}">Assign to Candidate</a>
+        </div>
+      </li>
+      {% if user.userprofile.role == "Admin" %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             data-toggle="dropdown"
+             id="reports-menu"
+             href="#"
+             role="button"
+             aria-haspopup="true"
+             aria-expanded="false">Reports</a>
+          <div class="dropdown-menu" aria-lableledby="reports-menu">
+            <a class="dropdown-item" href="{% url 'report-candidateassessment' %}">Candidate Assessment</a>
+            <a class="dropdown-item" href="{% url 'report-rawassessment' %}">Raw Assessment</a>
+          </div>
+        </li>
+      {% endif %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle"
+           data-toggle="dropdown"
+           id="reports-menu"
+           href="#"
+           role="button"
+           aria-haspopup="true"
+           aria-expanded="false">User Profile</a>
+        <div class="dropdown-menu" aria-lableledby="reports-menu">
+          <a class="dropdown-item" href="{% url 'admin-createuser' %}">Create</a>
+          <a class="dropdown-item" href="{% url 'admin-updateuser' %}">Update</a>
+          <a class="dropdown-item" href="{% url 'admin-listuser' %}">List</a>
+        </div>
+      </li>
+      {% if user.userprofile.role == "Admin" %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             data-toggle="dropdown"
+             id="reports-menu"
+             href="#"
+             role="button"
+             aria-haspopup="true"
+             aria-expanded="false">Admin</a>
+          <div class="dropdown-menu" aria-lableledby="reports-menu">
+            <a class="dropdown-item" href="{% url 'admin-typelookupaddedit' %}">Dropdown Values</a>
+          </div>
+        </li>
+      {% endif %}
+    </ul>
+    <ul class="nav navbar-nav">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle"
+           data-toggle="dropdown"
+           id="logoutmenu"
+           href="#"
+           role="button"
+           aria-haspopup="true"
+           aria-expanded="false"><i class="fa fa-user"></i></a>
+        <div class="dropdown-menu dropdown-menu-right"
+             aria-lableledby="logoutmenu">
+          <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

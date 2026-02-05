@@ -1,0 +1,152 @@
+{% extends "PartialTemplates/Base.html" %}
+{% block pagetitle %}
+  {{ pagetitle }}
+{% endblock pagetitle %}
+{% block customstyles %}
+  <style type="text/css">
+  .Question_p{
+    font-weight: bold;
+    font-size: 1rem;
+    color:#00095a;
+  }
+  .option_head{
+    font-weight: bold;
+  }
+  .question_candidate_answer{
+font-weight: bold;
+color:#005de9;
+  }
+  .question_answer_status{
+font-weight: bold;
+color:#00095a;
+  }
+  .assessment_percentage{
+font-weight: bold;
+color:#dd0093;
+font-size: 2rem;
+  }
+  .assessmenttitle,.assessmentdate,.assessmentlanguage,.candidatename,.candidatesite,.candidatescore{
+    font-weight: bold;
+  }
+    .assessmenttitle span,.assessmentdate span,.assessmentlanguage span,.candidatename span,.candidatesite span,.candidatescore span{
+    color: #ff6600;
+  }
+  </style>
+{% endblock %}
+{% block maincontent %}
+  <div class="container-fluid">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <i class="fa fa-home"></i> Report <i class="fa fa-chevron-right"></i> Raw Assessment <i class="fa fa-chevron-right"></i> {{ pagetitle }}
+        </li>
+      </ol>
+    </nav>
+    <div class="card card-success card-outline mt-3">
+      <div class="card-header">
+        <h4 class="card-title header0">Raw Assessment Report</h4>
+      </div>
+      <div class="card-body card-body-withmaxheight">
+        {% if current_assessment %}
+          <form method="post" action="">
+            <div class="row mt1 text-center">
+              <div class="col-12">
+                <button type="button"
+                        class="btn btn-primary btn-sm btndownloadreport"
+                        name="ActionName"
+                        value="downloadpdf"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Download">Download</button>
+              </div>
+            </div>
+            <div id="ReportDiv">
+              <div class="row mt1 text-center">
+                <div class="col-12">
+                  <p style="text-align: center; font-weight: bold; font-size: 1.5rem;">Raw Assessment Report</p>
+                </div>
+              </div>
+              <div class="row mt1">
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p class="assessmenttitle">
+                          ASSESSMENT: <span>{{ current_assessment.title }}</span>
+                        </p>
+                      </td>
+                      <td>
+                        <p class="assessmentlanguage">
+                          LANGUAGE: <span>{{ current_assessment.language }}</span>
+                        </p>
+                      </td>
+                      <td>
+                        <p class="assessmentdate">
+                          DURATION(Minutes): <span>{{ current_assessment.duration_minutes }}</span>
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row mt1">
+                <form name="QuestionListForm" action="" method="post">
+                  {% csrf_token %}
+                  {% with loopcount=1 %}
+                    {% for question in raw_assessment_data %}
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt1">
+                        <p class="Question_p">
+                          {{ forloop.counter }}<span>)</span> {{ question.question }}
+                          {% for option in question.options %}
+                            <p>
+                              <span class="option_head">Option {{ forloop.counter }}:</span> {{ option.option_text }}
+                            </p>
+                          {% endfor %}
+                        </p>
+                        <p class="question_candidate_answer">Correct Answer: {{ question.correctoption }}</p>
+                      </div>
+                    {% endfor %}
+                  {% endwith %}
+                </form>
+              </div>
+            </div>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock maincontent %}
+{% block customscript %}
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('.spanloading').show()
+    })
+
+$('body').on('click','.btndownloadreport',function(){
+ DownloadReportPDF();
+});
+
+function DownloadReportPDF() {
+    const html = document.getElementById("ReportDiv").innerHTML;
+
+    fetch("/onlineassessment/assesspanel/reports/candidateassessmentdownloadpdf", {
+        method: "POST",
+        headers: { 
+            "Content-Type": "application/json", 
+            "X-CSRFToken": "{{ csrf_token }}" 
+        },
+        body: JSON.stringify({ html: html })
+    })
+    .then(response => response.blob())
+    .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "report.pdf";
+        a.click();
+        window.URL.revokeObjectURL(url);
+    })
+    .catch(err => console.error(err));
+}
+  </script>
+{% endblock customscript %}

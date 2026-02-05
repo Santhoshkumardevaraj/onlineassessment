@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Lang Assessment Login</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="lang assessment portal">
+        <meta name="keywords" content="lang assessment portal">
+        {% load static %}        
+        <script src="{% static 'webtheme/plugins/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'webtheme/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'webtheme/js/adminlte.min.js' %}"></script>
+        <!-- Data Table static files -->
+        <link rel="stylesheet"
+              href="{% static 'webtheme/plugins/fontawesome-free/css/all.min.css' %}">
+        <link rel="stylesheet"
+              href="{% static 'webtheme/css/adminlte.min.css' %}">
+        <style type="text/css">
+        .notifyred {
+            color: #FF0000;
+        }
+        </style>
+    </head>
+    <body class="hold-transition login-page">
+        <div class="login-box">
+            <!-- /.login-logo -->
+            <div class="card card-outline card-primary">
+                <div class="card-header text-center">
+                    <a href="/" class="h5"><b>Online Assessment Portal</b></a>
+                </div>
+                <div class="card-body">
+                    <p class="login-box-msg">Sign in</p>
+                    <form method="post">
+                        <div class="input-group mb-3">
+                            {% csrf_token %}
+                            {{ LoginForm.loginid }}
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            {{ LoginForm.password }}
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <div class="row">
+                            {% if messages %}
+                                {% for message in messages %}<p class="text-danger">{{ message }}</p>{% endfor %}
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on('focus', ':input', function () {
+            $(this).attr('autocomplete', 'off');
+        });
+    });
+    $('#Errmsg').hide();
+    function showErrormsg(msg, classname, clearflag) {
+        $("#Errmsg").attr('class', 'notify');
+        $('#Errmsg').addClass(classname);
+        $('#Errmsg').html(msg);
+        $('#Errmsg').show();
+        $('#Errmsg').delay(1000).fadeOut(3000);
+        if (clearflag == 1) {
+        }
+    }
+    let MessageCode = $('#HdfMessageCode').val();
+    if (MessageCode == "AuthFailed") {
+        showErrormsg('Authentication Failed.', 'notifyred', 0);
+    }
+    if (MessageCode == "InvalidLogin") {
+        showErrormsg('Invalid Login Id or Password', 'notifyred', 0);
+    }
+    if (MessageCode == "PageException") {
+        showErrormsg('Page Error! Please Escalate', 'notifyred', 0);
+    }
+
+    function ValidateForm(){
+        let formelement=$('#txtbxloginid').val();
+        if(formelement=='undefined' || formelement==''){
+            showErrormsg('LoginID is not filled', 'notifyred', 0);
+            $('#txtbxloginid').focus(); 
+            return false;           
+        }
+        formelement=$('#txtbxpassword').val();
+        if(formelement=='undefined' || formelement==''){
+            showErrormsg('Password is not filled', 'notifyred', 0);
+            $('#txtbxpassword').focus();  
+            return false;          
+        }
+    }
+    </script>
+</html>

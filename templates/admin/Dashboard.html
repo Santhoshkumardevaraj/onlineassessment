@@ -1,0 +1,24 @@
+{% extends 'PartialTemplates/Base.html' %}
+{% block pagetitle %}
+    {{ pagetitle }}
+{% endblock pagetitle %}
+{% block customstyles %}<style type="text/css"></style>{% endblock %}
+{% block maincontent %}
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="fa fa-home"></i> <i class="fa fa-chevron-right"></i>
+                </li>
+            </ol>
+        </nav>
+    </div>
+{% endblock maincontent %}
+{% block customscript %}
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('.spanloading').show();
+
+    });   
+    </script>
+{% endblock customscript %}

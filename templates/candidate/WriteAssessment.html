@@ -1,0 +1,655 @@
+{% extends "PartialTemplates/CandidateBase.html" %}
+{% block pagetitle %}
+    {{ pagetitle }}
+{% endblock pagetitle %}
+{% block customstyles %}
+    <style type="text/css">
+    .font1rem{
+        font-size: 1rem;;
+    }
+
+    .q-button-default {
+  background-color: #8c9cbf;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8c9cbf), color-stop(50%, #546a9e), color-stop(50%, #36518f), color-stop(100%, #3d5691));
+  background-image: -webkit-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+  background-image: -moz-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+  background-image: -ms-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+  background-image: -o-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+  background-image: linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+  border: 1px solid #172d6e;
+  border-bottom: 1px solid #0e1d45;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 1px 0 0 #b1b9cb;
+  -moz-box-shadow: inset 0 1px 0 0 #b1b9cb;
+  box-shadow: inset 0 1px 0 0 #b1b9cb;
+  color: #fff;
+  font: bold 16px "helvetica neue", helvetica, arial, sans-serif;
+  padding: 7px 0 8px 0;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 0 -1px 1px #000f4d;
+  width: 150px;
+}
+.q-button-default:hover {
+    color:#FFFFFF;
+  background-color: #7f8dad;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7f8dad), color-stop(50%, #4a5e8c), color-stop(50%, #2f477d), color-stop(100%, #364c80));
+  background-image: -webkit-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+  background-image: -moz-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+  background-image: -ms-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+  background-image: -o-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+  background-image: linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+  cursor: pointer;
+}
+.q-button-default:active {
+    color:#FFFFFF;
+  -webkit-box-shadow: inset 0 0 20px 0 #1d2845, 0 1px 0 rgba(255, 255, 255, .1);
+  -moz-box-shadow: inset 0 0 20px 0 #1d2845, 0 1px 0 rgba(255, 255, 255, .1);
+  box-shadow: inset 0 0 20px 0 #1d2845, 0 1px 0 rgba(255, 255, 255, .1);
+}
+
+   .q-button-viewed {
+  background-color: #f1c40f;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7d34a), color-stop(50%, #e2b007), color-stop(50%, #c99a06), color-stop(100%, #b58905));
+  background-image: -webkit-linear-gradient(top, #f7d34a 0%, #e2b007 50%, #c99a06 50%, #b58905 100%);
+  background-image: -moz-linear-gradient(top, #f7d34a 0%, #e2b007 50%, #c99a06 50%, #b58905 100%);
+  background-image: -ms-linear-gradient(top, #f7d34a 0%, #e2b007 50%, #c99a06 50%, #b58905 100%);
+  background-image: -o-linear-gradient(top, #f7d34a 0%, #e2b007 50%, #c99a06 50%, #b58905 100%);
+  background-image: linear-gradient(top, #f7d34a 0%, #e2b007 50%, #c99a06 50%, #b58905 100%);
+  border: 1px solid #8a6d00;
+  border-bottom: 1px solid #5f4b00;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 0 0 #ffe58a;
+  color: #000;
+  font: bold 16px "helvetica neue", helvetica, arial, sans-serif;
+  padding: 7px 0 8px 0;
+  text-align: center;
+  width: 150px;
+}
+
+.q-button-viewed:hover {
+  color:#000;
+  background-color: #eec73c;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eec42c), color-stop(50%, #d2a306), color-stop(50%, #ba8f05), color-stop(100%, #a57b04));
+  background-image: -webkit-linear-gradient(top, #eec42c 0%, #d2a306 50%, #ba8f05 50%, #a57b04 100%);
+  background-image: -moz-linear-gradient(top, #eec42c 0%, #d2a306 50%, #ba8f05 50%, #a57b04 100%);
+  background-image: -ms-linear-gradient(top, #eec42c 0%, #d2a306 50%, #ba8f05 50%, #a57b04 100%);
+  background-image: -o-linear-gradient(top, #eec42c 0%, #d2a306 50%, #ba8f05 50%, #a57b04 100%);
+  background-image: linear-gradient(top, #eec42c 0%, #d2a306 50%, #ba8f05 50%, #a57b04 100%);
+  cursor: pointer;
+}
+.q-button-viewed:active {
+  box-shadow: inset 0 0 20px 0 #6b5200, 0 1px 0 rgba(255, 255, 255, .1);
+}
+
+.q-button-answered {
+  background-color: #2ecc71;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #58d68d), color-stop(50%, #28b463), color-stop(50%, #1f9a54), color-stop(100%, #1a8347));
+  background-image: -webkit-linear-gradient(top, #58d68d 0%, #28b463 50%, #1f9a54 50%, #1a8347 100%);
+  background-image: -moz-linear-gradient(top, #58d68d 0%, #28b463 50%, #1f9a54 50%, #1a8347 100%);
+  background-image: -ms-linear-gradient(top, #58d68d 0%, #28b463 50%, #1f9a54 50%, #1a8347 100%);
+  background-image: -o-linear-gradient(top, #58d68d 0%, #28b463 50%, #1f9a54 50%, #1a8347 100%);
+  background-image: linear-gradient(top, #58d68d 0%, #28b463 50%, #1f9a54 50%, #1a8347 100%);
+  border: 1px solid #145a32;
+  border-bottom: 1px solid #0d3b21;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 0 0 #a9dfbf;
+  color: #fff;
+  font: bold 16px "helvetica neue", helvetica, arial, sans-serif;
+  padding: 7px 0 8px 0;
+  text-align: center;
+  width: 150px;
+}
+
+.q-button-answered:hover {
+    color:#ffffff;
+  background-color: #27ae60;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #40bf75), color-stop(50%, #28b463), color-stop(50%, #1f9a54), color-stop(100%, #1a8347));
+  background-image: -webkit-linear-gradient(top, #40bf75 0%, #28b463 50%, #1f9a54 50%, #1a8347 100%);
+  background-image: -moz-linear-gradient(top, #40bf75 0%, #28b463 50%, #1f9a54 50%, #1a8347 100%);
+  background-image: -ms-linear-gradient(top, #40bf75 0%, #28b463 50%, #1f9a54 50%, #1a8347 100%);
+  background-image: -o-linear-gradient(top, #40bf75 0%, #28b463 50%, #1f9a54 50%, #1a8347 100%);
+  background-image: linear-gradient(top, #40bf75 0%, #28b463 50%, #1f9a54 50%, #1a8347 100%);
+  cursor: pointer;
+}
+
+
+.q-button-currentquestion {
+  background-color: #cc2ecc;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d658b6), color-stop(50%, #b42896), color-stop(50%, #9a1f7f), color-stop(100%, #831a64));
+  background-image: -webkit-linear-gradient(top, #d658b6 0%, #b42896 50%, #9a1f7f 50%, #831a64 100%);
+  background-image: -moz-linear-gradient(top, #d658b6 0%, #b42896 50%, #9a1f7f 50%, #831a64 100%);
+  background-image: -ms-linear-gradient(top, #d658b6 0%, #b42896 50%, #9a1f7f 50%, #831a64 100%);
+  background-image: -o-linear-gradient(top, #d658b6 0%, #b42896 50%, #9a1f7f 50%, #831a64 100%);
+  background-image: linear-gradient(top, #d658b6 0%, #b42896 50%, #9a1f7f 50%, #831a64 100%);
+  border: 1px solid #5a1454;
+  border-bottom: 1px solid #3b0d37;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 0 0 #dfa9d6;
+  color: #fff;
+  font: bold 16px "helvetica neue", helvetica, arial, sans-serif;
+  padding: 7px 0 8px 0;
+  text-align: center;
+  width: 150px;
+}
+
+.q-button-currentquestion:hover {
+    color:#ffffff;
+  background-color: #ae278c;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #bf408e), color-stop(50%, #b4289d), color-stop(50%, #9a1f75), color-stop(100%, #831a64));
+  background-image: -webkit-linear-gradient(top, #bf408e 0%, #b4289d 50%, #9a1f75 50%, #831a64 100%);
+  background-image: -moz-linear-gradient(top, #bf408e 0%, #b4289d 50%, #9a1f75 50%, #831a64 100%);
+  background-image: -ms-linear-gradient(top, #bf408e 0%, #b4289d 50%, #9a1f75 50%, #831a64 100%);
+  background-image: -o-linear-gradient(top, #bf408e 0%, #b4289d 50%, #9a1f75 50%, #831a64 100%);
+  background-image: linear-gradient(top, #bf408e 0%, #b4289d 50%, #9a1f75 50%, #831a64 100%);
+  cursor: pointer;
+}
+
+.q_button{
+        margin-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 10rem;
+    height: 2rem;
+    width: 2rem;
+    padding: 0.2rem;
+    }
+
+    .navigation_summary{
+position:fixed;
+bottom:0.5rem;
+    }
+    .navigation_summary .list-group{
+        float: right;
+    }
+    .navigation_summary .list-group .list-group-item{
+        padding:0.5rem 0.5rem;
+    }
+
+    .countdown {
+        font-family: Cambria math;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #000000;
+    padding: 5px 3px;
+    border-radius: 8px;
+    letter-spacing: 2px;
+}
+
+.countdown span {
+    font-size: 1.5rem;
+    background: #000000;
+    color:#fff;
+    padding: 4px 4px;
+    border-radius: 6px;
+    min-width: 40px;
+    
+    text-align: center;
+}
+    </style>
+{% endblock %}
+{% block maincontent %}
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="fa fa-home"></i> Candidate <i class="fa fa-chevron-right"></i> Write Assessment
+                </li>
+            </ol>
+        </nav>
+        <div class="row mt1">
+            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                <h4>QUESTION:</h4>
+                <div class="callout callout-info mt1">
+                    <h5 class="p_question"></h5>
+                    <p class="p_option mt2 font1rem"></p>
+                </div>
+                <p class="navigation text-center">
+                    <button id="btnpreviousquestion"
+                            class="btn btn-sm btn-info q_navigate_button">Previous Question</button>
+                    <button id="btnnextquestion" class="btn btn-sm btn-info q_navigate_button">Next Question</button>
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <h4 class="q_no_navigation_title text-center"></h4>
+                <div class="callout callout-info mt1">
+                    <p id="countdown" class="countdown text-center">
+                        TIME LEFT
+                        <span id="cd-hours">00</span> :
+                        <span id="cd-minutes">00</span> :
+                        <span id="cd-seconds">00</span>
+                    </p>
+                    <p class="q_no_navigation"></p>
+                    <p class="endassessment text-center">
+                        <button type="submit"
+                                class="btn btn-sm btn-danger btnendassessment"
+                                name="ActionName"
+                                value="EndAssessment">End Assessment</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 navigation_summary text-center d-flex align-items-center justify-content-center">
+            <ul class="list-group list-group-horizontal">
+                <li class="list-group-item list-group-item-primary d-flex align-items-center justify-content-center">
+                    Question Status
+                </li>
+                <li class="list-group-item list-group-item-primary d-flex align-items-center justify-content-center">
+                    <button type="button"
+                            id="q_button_sample0"
+                            value="0"
+                            class="btn q_button q_navigate_button q-button-default">0</button>
+                    &nbsp;<span>Question Not Viewed</span>
+                </li>
+                <li class="list-group-item list-group-item-primary d-flex align-items-center justify-content-center">
+                    <button type="button"
+                            id="q_button_sample1"
+                            value="0"
+                            class="btn q_button q_navigate_button q-button-viewed">0</button>
+                    &nbsp;<span>Question Viewed</span>
+                </li>
+                <li class="list-group-item list-group-item-primary d-flex align-items-center justify-content-center">
+                    <button type="button"
+                            id="q_button_sample2"
+                            value="0"
+                            class="btn q_button q_navigate_button q-button-answered">0</button>
+                    &nbsp;<span>Question Answered</span>
+                </li>
+                <li class="list-group-item list-group-item-primary d-flex align-items-center justify-content-center">
+                    <button type="button"
+                            id="q_button_sample3"
+                            value="0"
+                            class="btn q_button q_navigate_button q-button-currentquestion">0</button>
+                    &nbsp;<span>Question Selected</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="hiddenfield">
+        <input type="hidden"
+               id="assessmentconductid"
+               name="assessmentconductid"
+               value="{{ assigned_assessment.signed_id }}">
+        <input type="hidden"
+               id="candidateanswerid"
+               name="candidateanswerid"
+               value="{{ candidateanswerid }}">
+        <input type="hidden"
+               id="currentquestionid"
+               name="currentquestionid"
+               value="{{ currentquestionid }}">
+        <input type="hidden"
+               id="currentselectedqustion_num"
+               name="currentselectedqustion_num">
+    </div>
+{% endblock maincontent %}
+{% block customscript %}
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('.spanloading').show();
+        load_question_navigation_onpageload();
+    });   
+ var time_remaining_inseconds=0;
+function load_current_question(curr_question_id){
+    $('.loading-overlay').show();
+   const assessmentconduct_id=$('#assessmentconductid').val();
+   const current_question_id=curr_question_id;
+       return $.ajax({
+            url: '/onlineassessment/onlineassessmentapi/CandidateAssessmentCurrentQuestion',  // Your DRF API endpoint
+            type: 'GET',                     // HTTP method
+            dataType: 'json',                // Expected data type
+            data: {
+                assessmentconductid: assessmentconduct_id,
+                 currentquestionid:current_question_id
+            }}
+        ).done(function(response){
+                // Handle successful response
+                
+                if(response.result && response.result.length > 0){
+                    res_current_question=response.result[0].current_question;
+                    res_previous_question=response.result[0].previous_question_id;
+                    res_next_question=response.result[0].next_question_id;
+                    options_list=response.result[0].current_options;
+                    const current_candidate_answer_id=response.result[0].current_options;
+                    let candidate_selected_option=response.result[0].candidate_option_id;
+                    $('#candidateanswerid').val(response.result[0].candidate_answer_id);
+
+                   $('.p_question').text(res_current_question);
+                   if(res_previous_question==null){                   
+                   $('#btnpreviousquestion').hide();
+                   }
+                   else{
+                    $('#btnpreviousquestion').show();
+                    $('#btnpreviousquestion').attr('value',res_previous_question);
+                   }
+
+                   if(res_next_question==null){                   
+                   $('#btnnextquestion').hide();
+                   }
+                   else{
+                    $('#btnnextquestion').show();
+                    $('#btnnextquestion').attr('value',res_next_question);
+                   }
+
+                   $('.p_option').empty();
+                   if(options_list){
+                    options_list.forEach(function(radioitem){
+                        radio_btn_elem=document.createElement('input');
+                        radio_btn_elem.type="radio";
+                        radio_btn_elem.name="candidate_question_option";
+                        radio_btn_elem.value=radioitem.option_text;
+                        radio_btn_elem.id=radioitem.id;
+                        radio_btn_elem.classList.add('custom-control-input');
+                        radio_btn_elem.classList.add('custom-control-input-success');
+                        
+                        if (radioitem.id === candidate_selected_option) {
+        radio_btn_elem.checked = true; // pre-select
+    }
+
+                        radio_btn_label=document.createElement('label');
+                        radio_btn_label.textContent=radioitem.option_text;
+                        radio_btn_label.htmlFor =radioitem.id;
+                        radio_btn_label.classList.add('custom-control-label');
+                        
+                        radio_btn_div=document.createElement('div');
+                        radio_btn_div.classList.add('custom-control');
+                        radio_btn_div.classList.add('custom-radio');
+
+                        //radio_btn_div.classList.add('icheck-primary');
+
+                        radio_btn_div.append(radio_btn_elem);
+                        radio_btn_div.append(radio_btn_label);
+                        
+
+                        $('.p_option').append(radio_btn_div);
+                    });
+
+                    //$("input[name='candidate_question_option']").val(candidate_selected_option);
+                   }
+                  $('.loading-overlay').hide();  
+            }
+           
+            
+        }).fail(function(xhr, status, error){
+                console.error('Error:', error);
+                $('.loading-overlay').hide();
+            });
+   
+}
+// on quetion load function to be called
+function load_question_navigation(){
+  
+   const assessmentconduct_id=$('#assessmentconductid').val();
+        $.ajax({
+            url: '/onlineassessment/onlineassessmentapi/CandidateAssessmentQuestlist',  // Your DRF API endpoint
+            type: 'GET',                     // HTTP method
+            dataType: 'json',                // Expected data type
+            data: {
+                assessmentconductid: assessmentconduct_id,  
+            },
+            success: function(response){
+                // Handle successful response
+                $('.q_no_navigation').empty();
+                if(response.result && response.result.length > 0){
+                    button_num=1;
+                    $('.q_no_navigation_title').text("Question Navigation");
+                    response.result.forEach(function(item){
+                        const q_button = document.createElement('button');
+  q_button.innerText = button_num;
+  q_button.id = "q_button"+button_num;
+  q_button.value = item.signed_id;
+    q_button.classList.add('btn');
+  q_button.classList.add('q_button');
+  q_button.classList.add('q_navigate_button')
+  if(item.question_status!=null && item.question_status!='' && item.question_status=='viewed'){
+ q_button.classList.add('q-button-viewed');
+  }
+  else if(item.question_status!=null && item.question_status!='' && item.question_status=='answered'){
+ q_button.classList.add('q-button-answered');
+  }
+  else{
+  q_button.classList.add('q-button-default');
+  }
+
+  q_button.onclick = function() {
+      
+  };
+
+  $('.q_no_navigation').append(q_button);
+                        //$('.q_no_navigation').append('<p>Signed ID: ' + item.signed_id + '</p>');
+                        button_num+=1;
+                    });
+
+                    const current_selected_question_num=$('#currentselectedqustion_num').val();
+                    if(current_selected_question_num!=null && current_selected_question_num!=undefined){
+                        qbtn_id='#q_button'+current_selected_question_num;                       
+                        $(qbtn_id).addClass('q-button-currentquestion');
+                    }
+                    
+                    time_remaining_inseconds=response.time_remaining_inseconds;
+                    if(time_remaining_inseconds!=undefined && time_remaining_inseconds!=null){
+                        time_remaining_inseconds=parseInt(time_remaining_inseconds);
+                    }
+                    CountdownTimer();
+                } else {
+                    $('.q_no_navigation').append('<p>No data found</p>');
+                }
+               
+            },
+            error: function(xhr, status, error){
+                console.error('Error:', error);
+                $('.loading-overlay').hide();
+            }
+        });
+   
+}
+// ON PAge load function
+function load_question_navigation_onpageload(){
+   const assessmentconduct_id=$('#assessmentconductid').val();
+        $.ajax({
+            url: '/onlineassessment/onlineassessmentapi/CandidateAssessmentQuestlist',  // Your DRF API endpoint
+            type: 'GET',                     // HTTP method
+            dataType: 'json',                // Expected data type
+            data: {
+                assessmentconductid: assessmentconduct_id,  
+            },
+            success: function(response){
+                // Handle successful response
+                $('.q_no_navigation').empty();
+                if(response.result && response.result.length > 0){
+                    button_num=1;
+                    $('.q_no_navigation_title').text("Question Navigation");
+                    response.result.forEach(function(item){
+                        const q_button = document.createElement('button');
+  q_button.innerText = button_num;
+  q_button.id = "q_button"+button_num;
+  q_button.value = item.signed_id;
+    q_button.classList.add('btn');
+  q_button.classList.add('q_button');
+  q_button.classList.add('q_navigate_button')
+  if(item.question_status!=null && item.question_status!='' && item.question_status=='viewed'){
+ q_button.classList.add('q-button-viewed');
+  }
+  else if(item.question_status!=null && item.question_status!='' && item.question_status=='answered'){
+ q_button.classList.add('q-button-answered');
+  }
+  else{
+  q_button.classList.add('q-button-default');
+  }
+
+  q_button.onclick = function() {
+      
+  };
+  $('.q_no_navigation').append(q_button);
+                        //$('.q_no_navigation').append('<p>Signed ID: ' + item.signed_id + '</p>');
+                        button_num+=1;
+                    });
+                    var firstquestion_id = response.result[0].signed_id;
+                    $('#currentquestionid').val(firstquestion_id);
+                    
+                    $('#currentselectedqustion_num').val(1)
+                    $('#q_button1').addClass('q-button-currentquestion');
+                    load_current_question(firstquestion_id);
+                    time_remaining_inseconds=response.time_remaining_inseconds;
+                    if(time_remaining_inseconds!=undefined && time_remaining_inseconds!=null){
+                        time_remaining_inseconds=parseInt(time_remaining_inseconds);
+                    }
+                    CountdownTimer();
+                } else {
+                    $('.q_no_navigation').append('<p>No data found</p>');
+                }
+               $('.loading-overlay').hide();
+            },
+            error: function(xhr, status, error){
+                console.error('Error:', error);
+                alert('An Unexpected error occured');
+                window.location.href = "{% url 'candidate-AssessmentStart' %}";
+                $('.loading-overlay').hide();
+            }
+        });
+   
+}
+
+// User options
+
+$(document).on("change", "input[name='candidate_question_option']", function () {
+    let selectedId = $(this).attr("id");
+    console.log("Selected ID:", selectedId);
+
+    let selectedValue = $(this).val();
+    console.log("Selected Value:", selectedValue);
+    const assessmentconduct_id=$('#assessmentconductid').val();
+    const question_id=$('#currentquestionid').val();
+    const candidate_answer_id=$('#candidateanswerid').val();
+    const option_id=selectedId;
+    $('.loading-overlay').show();
+$.ajax({
+            url: '/onlineassessment/onlineassessmentapi/CandidateAnswerOption',  // Your DRF API endpoint
+            type: 'GET',                     // HTTP method
+            dataType: 'json',                // Expected data type
+            data: {
+                assessmentconductid: assessmentconduct_id,
+                 questionid:question_id,
+candidateanswerid:candidate_answer_id,
+optionid:option_id
+            },
+            success: function(response){
+                // Handle successful response
+                
+                if(response.result && response.result.length > 0){
+                   
+$('.loading-overlay').hide();
+                   
+            }
+        },
+            error: function(xhr, status, error){
+                console.error('Error:', error);
+                $('.loading-overlay').hide();
+            }
+        });
+
+});
+
+
+
+$('body').on('click','.q_no_navigation .q_navigate_button',function(){
+   
+const select_question_num=$(this).index();
+$('#currentselectedqustion_num').val(select_question_num+1);
+});
+$('body').on('click','.navigation .q_navigate_button',function(){
+   
+let select_question_num=$(this).index();
+let current_selected_question_num=parseInt($('#currentselectedqustion_num').val());
+if(select_question_num==0){
+    current_selected_question_num-=1
+}
+else{
+current_selected_question_num+=1
+}
+$('#currentselectedqustion_num').val(current_selected_question_num);
+});
+
+$('body').on('click','.q_no_navigation .q_navigate_button, .navigation .q_navigate_button',function(){
+   
+const select_question_id=$(this).val();
+load_current_question(select_question_id).then(function() {
+    load_question_navigation();   
+});
+});
+
+
+function startCountdown(durationSeconds, onComplete = null) {
+    let timer = durationSeconds;
+
+    const intervalId = setInterval(function () {
+        let hours = Math.floor(timer / 3600);
+        let minutes = Math.floor((timer % 3600) / 60);
+        let seconds = timer % 60;
+
+        // Update HTML
+        $("#cd-hours").text(String(hours).padStart(2, '0'));
+        $("#cd-minutes").text(String(minutes).padStart(2, '0'));
+        $("#cd-seconds").text(String(seconds).padStart(2, '0'));
+
+        if (timer <= 0) {
+            clearInterval(intervalId);
+
+            if (onComplete) {
+                onComplete();
+            }
+        }
+
+        timer--;
+    }, 1000);
+}
+
+let startSeconds = (2 * 3600) + (15 * 60) + 30;
+
+function CountdownTimer(){
+    if (time_remaining_inseconds<=0)
+{
+    time_remaining_inseconds=0;
+}
+    startCountdown(time_remaining_inseconds, function(){
+        EndAssessment('time_end');
+    });
+}
+
+function EndAssessment(endtype){
+        const assessmentconduct_id=$('#assessmentconductid').val();    
+    const EndType=endtype;
+    $('.loading-overlay').show();
+$.ajax({
+            url: '/onlineassessment/onlineassessmentapi/CandidateEndAssessment',  // Your DRF API endpoint
+            type: 'GET',                     // HTTP method
+            dataType: 'json',                // Expected data type
+            data: {
+                assessmentconductid: assessmentconduct_id,                 
+endtype:EndType
+            },
+            success: function(response){
+                // Handle successful response
+                console.log(response.result);
+                if(response.result && response.result=="success"){
+                   window.location.href = "{% url 'candidate-AssessmentEnd' %}";
+$('.loading-overlay').hide();
+                   
+            }
+        },
+            error: function(xhr, status, error){
+                console.error('Error:', error);
+                 
+                $('.loading-overlay').hide();
+            }
+        });
+}
+
+$('body').on('click','.btnendassessment',function(){
+   EndAssessment('btn_click');
+
+});
+
+    </script>
+{% endblock customscript %}
