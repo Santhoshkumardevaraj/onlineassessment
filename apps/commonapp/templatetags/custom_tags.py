@@ -1,13 +1,14 @@
-from django import template
-from datetime import date
 import json
+from datetime import date
+
+from django import template
 
 register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def tag_welcomenote(context,cookiename):
-    request = context['request']    
+def tag_welcomenote(context, cookiename):
+    request = context["request"]
     if not request.user.is_authenticated:
         return "Welcome, Guest"
 
