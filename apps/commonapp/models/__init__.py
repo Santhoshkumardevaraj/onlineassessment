@@ -1,6 +1,6 @@
-from .UserModel import UserProfile
-from .AssessmentModels import Assessment, Question, Option
-from .TypeLookupModel import TypeLookup
 from .AssessmentConductModels import AssessmentConduct
-from .CandidateAnswerModel import CandidateAnswer
+from .AssessmentModels import Assessment, Option, Question
 from .AuditField import AuditFieldModel
+from .CandidateAnswerModel import CandidateAnswer
+from .TypeLookupModel import TypeLookup
+from .UserModel import UserProfile

@@ -37,8 +37,8 @@ MANIFEST
 .secrets
 
 # Static files (if you want to ignore collected assets)
-static/
 
+staticfiles/
 
 # Logs
 *.log

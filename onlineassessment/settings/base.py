@@ -10,10 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-from pathlib import Path
 import os
-import environ
 from datetime import datetime
+from pathlib import Path
+
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-
     "apps.commonapp",
     "apps.assessment_admin",
     "apps.assessment_candidate",
@@ -83,13 +83,13 @@ WSGI_APPLICATION = "onlineassessment.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQL_DATABASE', 'DB_NAME'),
-        'USER': os.getenv('MYSQL_USER', 'DB_USER'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD', 'DB_PASSWORD'),
-        'HOST': os.getenv('MYSQL_HOST', 'localhost'),
-        'PORT': os.getenv('MYSQL_PORT', '3306'),
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.getenv("MYSQL_DATABASE", "DB_NAME"),
+        "USER": os.getenv("MYSQL_USER", "DB_USER"),
+        "PASSWORD": os.getenv("MYSQL_PASSWORD", "DB_PASSWORD"),
+        "HOST": os.getenv("MYSQL_HOST", "localhost"),
+        "PORT": os.getenv("MYSQL_PORT", "3306"),
     }
 }
 
@@ -129,15 +129,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 # The URL to use when referring to static files
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 # Additional locations where Django will look for static files
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR.parent, 'static'),
+    os.path.join(BASE_DIR.parent, "static"),
 ]
 
 # The absolute path to the directory where collectstatic will collect static files for deployment
-STATIC_ROOT = os.path.join(BASE_DIR.parent, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR.parent, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -147,4 +147,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = "login"
 
 
-#print(f"Bsase dir:{BASE_DIR} \n")
+# print(f"Bsase dir:{BASE_DIR} \n")
