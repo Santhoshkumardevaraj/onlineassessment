@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Online Assessment-{% block pagetitle %}Online Assessment{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Intranet tool for Developer tasks">
+
+
+  {% load static %}
+  <link rel="icon" type="image/x-icon" href="{% static 'image/onlineassessment.ico' %}">
+  <link rel="stylesheet" href="{% static 'webtheme/css/adminlte.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'webtheme/css/animate.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'webtheme/plugins/bootstrap-dropdown-hover/bootstrap-dropdownhover.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'webtheme/plugins/jquery-ui/jquery-ui.css' %}" />
+
+
+  <script src="{% static 'webtheme/plugins/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/jquery-ui/jquery-ui.min.js' %}"></script>    
+  <script src="{% static 'webtheme/plugins/popper/popper.min.js' %}"></script>
+  <script src="{% static 'webtheme/js/adminlte.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/bootstrap-dropdown-hover/bootstrap-dropdownhover.min.js' %}"></script>
+  
+  <script src="{% static 'webtheme/plugins/moment/moment.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/sweetalert2/sweetalert2.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/toastr/toastr.min.js' %}"></script>
+  
+
+
+  <!-- Data Table static files -->
+  <script src="{% static 'webtheme/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/jszip/jszip.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/pdfmake/pdfmake.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/pdfmake/vfs_fonts.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'webtheme/plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+  
+  <link rel="stylesheet" href="{% static 'webtheme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'webtheme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'webtheme/plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}" />
+
+
+  <link rel="stylesheet" href="{% static 'webtheme/plugins/daterangepicker/daterangepicker.css' %}" />
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{% static 'webtheme/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'webtheme/plugins/toastr/toastr.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'webtheme/plugins/fontawesome-free/css/all.min.css' %}" />
+  <!-- -->
+  <link rel="stylesheet" href="{% static 'webtheme/css/customstyle.css' %}?v=0.302" />
+
+  <style type="text/css">
+           .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .loading-overlay .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: 0.3em;
+        }
+        .tooltip-inner {
+    max-width: max-content;
+    padding: .25rem .5rem;
+    color: #fff;
+    text-align: left;
+    background-color: #000;
+    border-radius: .25rem;
+}
+
+
+  </style>
+
+  {% block customstyles %}
+  {% endblock %}
+</head>
+
+<body class="hold-transition layout-top-nav">
+    <div class="loading-overlay">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    {% include 'PartialTemplates/Nav.html'%}
+    {% load custom_tags %}
+    <div class="page-main-div">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <p class="text-right" style="margin: 0rem; font-weight: bold; color: #696969;  padding: 0rem 0.5rem; font-family: Cambria Math;">{% tag_welcomenote 'DevToolAuthCookie' %}</p>
+                </div>
+            </div>
+        </div>
+        <span class="spanloading text-center"> <div class="spinner-border text-dark text-center" role="status">
+            <span class="sr-only">Loading...</span>
+          </div><div class="text-dark">Loading...</div></span>
+        {% block maincontent %}
+        {% endblock %}
+    </div>
+    <div id="Errmsg">
+
+    </div>
+
+   
+
+    <script type="text/javascript">
+
+        $('input[type="text"]').attr('autocomplete', 'off');
+
+        function confirmdelete() {
+            return confirm("Selected Data Will be Deleted!!!!");
+        }
+        
+        $('.datepick').datepicker({
+            format: 'm/d/Y', // Adjust the date and time format as needed
+            timepicker: false,
+            dayOfWeekStart: 1, // Sets the first day of the week to Monday
+            lang: 'en', // Optional: Set the language
+            showOtherMonths: true, // Show dates from other months
+            selectOtherMonths: true, // Allow selection of dates from other months
+            changeMonth: true, // Enable month dropdown
+            changeYear: true, // Enable year dropdown
+            firstDay: 1,
+            yearRange: "-15:+1"
+        });
+
+        function showErrormsg(message, msgclass, flag) {
+            //console.log("test",message,msgclass,flag);
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            let notclass = msgclass;
+            if (notclass == 'notifygreen') {
+                notclass = 'success';
+            }
+            if (notclass == 'notifyyellow') {
+                notclass = 'warning';
+            }
+            if (notclass == 'notifyred') {
+                notclass = 'error';
+            }
+            Toast.fire({
+                icon: notclass,
+                title: '&nbsp;' + message
+            })
+        }
+
+        $(".tabledtdown").DataTable({
+            "lengthMenu": [[30, 50, -1], [30, 50, "All"]],
+            "pageLength": -1,
+            "order": [[0, "asc"]],
+            "responsive": false, "lengthChange": false, "autoWidth": false,
+            "buttons": [{
+                extend: 'copy',
+                text: 'Copy',
+                className: 'btn btn-primary btn-sm' // Custom class for Copy button
+            },
+            {
+                extend: 'csv',
+                text: 'CSV',
+                className: 'btn btn-primary btn-sm' // Custom class for CSV button
+            },
+            {
+                extend: 'excel',
+                text: 'Excel',
+                className: 'btn btn-primary btn-sm' // Custom class for Excel button
+            },
+            {
+                extend: 'pdf',
+                text: 'PDF',
+                className: 'btn btn-primary btn-sm' // Custom class for PDF button
+            },
+            {
+                extend: 'print',
+                text: 'Print',
+                className: 'btn btn-primary btn-sm' // Custom class for Print button
+            },
+            {
+                extend: 'colvis',
+                text: 'Column visibility',
+                className: 'btn btn-primary btn-sm' // Custom class for Column Visibility button
+            }],
+            "dom": 'Bfrtip'
+        }).buttons().container().appendTo('.dataTables_wrapper .col-md-6:eq(0)');
+
+        $('.dt-buttons button').each(function () {
+            $(this).removeClass('btn-secondary');
+        });
+
+        $('.tabledt').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "lengthMenu": [[30, 50, -1], [30, 50, "All"]],
+            "pageLength": -1,
+            "order": [[0, "asc"]],
+        });
+
+       
+        $(window).on('load', function () {
+            // Hide the overlay once the page is fully loaded
+            $('.loading-overlay').fadeOut();
+            $('.spanloading').fadeOut();
+        });
+
+        $('body').on('click', '.devtoolnavbar a', function () {
+            $('.loading-overlay').show();
+        });
+        $('body').on('click', 'input[type="submit"]', function () {
+            $('.loading-overlay').show();
+        });
+
+        $(document).click(function(event) {
+                if (!$(event.target).closest('#loadingOverlay, .devtoolnavbar a, input[type="submit"]').length) {
+                    $('.loading-overlay').fadeOut();
+                }
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+$('input[type="date"]').on('click', function () {
+                this.showPicker(); // This opens the date picker on focus
+            });
+    </script>
+
+{% block customscript %}
+
+{% endblock %}
+
+    {% for message in messages %}
+    <script type="text/javascript">
+
+
+showErrormsg("{{message|safe}}","{{message.tags}}" , 0);
+    </script>
+    {% endfor %}
+
+</body>
+</html>

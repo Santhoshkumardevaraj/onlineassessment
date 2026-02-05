@@ -1,0 +1,365 @@
+{% extends "PartialTemplates/Base.html" %}
+{% block pagetitle %}
+  {{ pagetitle }}
+{% endblock pagetitle %}
+{% block customstyles %}<style type="text/css"></style>{% endblock %}
+{% block maincontent %}
+  <div class="container-fluid">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <i class="fa fa-home"></i> Assessment <i class="fa fa-chevron-right"></i> {{ pagetitle }}
+        </li>
+      </ol>
+    </nav>
+    <form name="AssignAssessmentForm" action="" method="get">
+      {% csrf_token %}
+      <div class="card card-primary card-outline mt-3">
+        <div class="card-header">
+          <h4 class="card-title header0">Assign Assessment to Candidate</h4>
+        </div>
+        <div class="card-body card-body-withmaxheight">
+          <div class="row mt1">
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+              <label for="" class="lbl">
+                Candidate Loginid <i class="mandatory">*</i>
+              </label>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+              <input type="text"
+                     id="txtbxsearchbyloginid"
+                     name="username"
+                     class="form-control"
+                     placeholder="Login ID"
+                     value="{{ searched_username|default:'' }}" />
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+              <button type="submit"
+                      name="ActionName"
+                      value="getcandidatedetails"
+                      class="btn btn-primary btn-sm">Search</button>
+              <a href="{% url 'assessment-assigncandidate' %}"
+                 class="btn btn-danger btn-sm">Reset Page</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              {% if AssessmentForm.errors %}
+                {% for field in AssessmentForm %}
+                  {% for error in field.errors %}
+                    <h6 class="text-danger">
+                      <strong>{{ field.label }}:</strong> {{ error }}
+                    </h6>
+                  {% endfor %}
+                {% endfor %}
+                {% for error in AssessmentForm.non_field_errors %}<p class="text-danger">{{ error }}</p>{% endfor %}
+              {% endif %}
+            </div>
+          </div>
+          {% if candidate_profile %}
+            <div class="row mt1">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card card-primary card-tabs">
+                  <div class="card-header p-0 pt-1">
+                    <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active"
+                           id="custom-tabs-one-home-tab"
+                           data-toggle="pill"
+                           href="#custom-tabs-one-home"
+                           role="tab"
+                           aria-controls="custom-tabs-one-home"
+                           aria-selected="true">Candidate Details</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link"
+                           id="custom-tabs-one-profile-tab"
+                           data-toggle="pill"
+                           href="#custom-tabs-one-profile"
+                           role="tab"
+                           aria-controls="custom-tabs-one-profile"
+                           aria-selected="false">Assessment Assigned</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <div class="tab-content" id="custom-tabs-one-tabContent">
+                      <div class="tab-pane fade active show"
+                           id="custom-tabs-one-home"
+                           role="tabpanel"
+                           aria-labelledby="custom-tabs-one-home-tab">
+                        <div class="row mt1">
+                          <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                            <p class="text-bold">Site</p>
+                          </div>
+                          <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                            <p class="text-bold text-info">{{ candidate_profile.userprofile.site }}</p>
+                          </div>
+                          <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                            <p class="text-bold">Name</p>
+                          </div>
+                          <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                            <p class="text-bold text-info">{{ candidate_profile.first_name }} {{ candidate_profile.last_name }}</p>
+                          </div>
+                          <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                            <p class="text-bold">Login ID</p>
+                          </div>
+                          <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                            <p class="text-bold text-info">{{ candidate_profile.username }}</p>
+                          </div>
+                        </div>
+                        <div class="row mt1">
+                          <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                            <p class="text-bold">Email</p>
+                          </div>
+                          <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                            <p class="text-bold text-info">{{ candidate_profile.email }}</p>
+                          </div>
+                          <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                            <p class="text-bold">Language</p>
+                          </div>
+                          <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+                            <p class="text-bold text-info">{{ candidate_profile.userprofile.language }}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade"
+                           id="custom-tabs-one-profile"
+                           role="tabpanel"
+                           aria-labelledby="custom-tabs-one-profile-tab">
+                        {% if assigned_assessment %}
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th>S No</th>
+                                <th>Assessment</th>
+                                <th>Assigned Date</th>
+                                <th>Language</th>
+                                <th>Delete</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% with loopcount=1 %}
+                                {% for assessmentconduct in assigned_assessment %}
+                                  <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ assessmentconduct.assessment }}</td>
+                                    <td>{{ assessmentconduct.assessment_date|date:"Y-m-d" }}</td>
+                                    <td>{{ assessmentconduct.assessment.language }}</td>
+                                    <td>
+                                      <button type="submit"
+                                              class="btn btn-danger btn-sm btnremoveassignmentconduct"
+                                              name="ActionName"
+                                              value="removeassessmentconduct"
+                                              data-toggle="tooltip"
+                                              data-placement="right"
+                                              title="Delete">
+                                        <i class="fa fa-trash"></i>
+                                      </button>
+                                      <input type="hidden"
+                                             id="hdfsignedrowid_{{ assessmentconduct.signed_id }}"
+                                             class="hdfrowid"
+                                             value="{{ assessmentconduct.signed_id }}" />
+                                    </td>
+                                  </tr>
+                                {% endfor %}
+                              {% endwith %}
+                            </tbody>
+                          </table>
+                        {% else %}
+                          <p class="text-bold text-info">No assessment assinged for the candidate</p>
+                        {% endif %}
+                        <input type="hidden"
+                               id="hdfsignedrowid_assessmentconduct"
+                               class="hdfrowassessmentconductid"
+                               name="assessmentconductidforaction" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.card -->
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </form>
+    {% if candidate_profile %}
+      <div class="card card-success card-outline mt-3">
+        <div class="card-header">
+          <h4 class="card-title header0">Recently Created Assessments/Search Assessment</h4>
+        </div>
+        <div class="card-body card-body-withmaxheight">
+          <form nam="AssessmentSearchForm" method="post" action="">
+            {% csrf_token %}
+            <div class="row mt1">
+              <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <div class="form-group">
+                  <label for="{{ AssessmentSearchForm.srchtitle.id_for_label }}" class="lbl">
+                    Assessment Title (Hint) <i class="mandatory">*</i>
+                  </label>
+                  {{ AssessmentSearchForm.srchtitle }}
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                <div class="form-group">
+                  <label for="{{ AssessmentSearchForm.srchnum_of_questions.id_for_label }}"
+                         class="lbl">
+                    No of Questions <i class="mandatory">*</i>
+                  </label>
+                  {{ AssessmentSearchForm.srchnum_of_questions }}
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                <div class="form-group">
+                  <label for="{{ AssessmentSearchForm.srchlanguage.id_for_label }}"
+                         class="lbl">
+                    Language <i class="mandatory">*</i>
+                  </label>
+                  {{ AssessmentSearchForm.srchlanguage }}
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                <div class="form-group">
+                  <label class="invisible">Search</label>
+                  <br />
+                  <button type="submit"
+                          name="ActionName"
+                          value="searchassessment"
+                          class="btn btn-primary btn-sm">Search</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          {% if page_obj %}
+            <div class="row mt1">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <form name="TypeLookupFormDelete" action="" method="post">
+                  {% csrf_token %}
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>S No</th>
+                        <th>Title</th>
+                        <th>Language</th>
+                        <th>No of Questions</th>
+                        <th>Duration (minutes)</th>
+                        <th>Date to assign</th>
+                        <th>Assign</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% with loopcount=1 %}
+                        {% for item in page_obj %}
+                          <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.language }}</td>
+                            <td>{{ item.num_of_questions }}</td>
+                            <td>{{ item.duration_minutes }}</td>
+                            <td>
+                              <input type="date" class="form-control dateassign">
+                            </td>
+                            <td>
+                              <button type="submit"
+                                      class="btn btn-info btn-sm btnassignassessment"
+                                      name="ActionName"
+                                      value="assignassessment"
+                                      data-toggle="tooltip"
+                                      data-placement="right"
+                                      title="Assign">
+                                <i class="fa fa-check"></i>
+                              </button>
+                              <input type="hidden"
+                                     id="hdfsignedrowid_{{ item.signed_id }}"
+                                     class="hdfrowid"
+                                     value="{{ item.signed_id }}" />
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      {% endwith %}
+                    </tbody>
+                  </table>
+                  <div class="pagination text-right justify-content-end">
+                    <ul class="pagination mb-0">
+                      {% for num in page_obj.paginator.page_range %}
+                        {% if num == page_obj.number %}
+                          <li class="active page-item disabled">
+                            <a class="page-link" href="#">{{ num }}</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item">
+                            <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  <input type="hidden" name="assessmentidforaction" id="hdfassessmentrecordid" />
+                  <input type="hidden" name="assessmentdatetoassign" id="hdfassessmentdate" />
+                </form>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock maincontent %}
+{% block customscript %}
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('.spanloading').show()
+    })
+
+$(function() {
+  var $input = $("#txtbxsearchbyloginid");
+
+  $input.autocomplete({
+    source: function(request, response) {
+      $.ajax({
+        url: "/onlineassessment/onlineassessmentapi/CandidateprofileLoginidList",
+        dataType: "json",
+        data: { loginidmatch: request.term },
+        success: function(data) {
+          const usernames = $.map(data.result, item => item.username || item);
+          response(usernames);
+        },
+        error: function() { response([]); }
+      });
+    },
+    minLength: 1
+  });
+
+  // Optional: trigger search manually on keypress
+  $input.on('keyup', function() {
+    var term = $(this).val();
+    if (term.length >= 2) {
+      $input.autocomplete("search", term);
+    }
+  });
+});
+
+$("body").on("click", ".btnassignassessment", function () {
+      
+            const selected_id=$(this).closest('td').find('.hdfrowid')[0].value;             
+  const selected_date=$(this).closest('tr').find('.dateassign').val();
+  $("#hdfassessmentrecordid").val(selected_id);  
+  $("#hdfassessmentdate").val(selected_date);       
+    });
+$("body").on("click", ".btnremoveassignmentconduct", function () {
+ var delconfirm = confirmdelete();
+        if (delconfirm == true) {
+            const selected_id=$(this).closest('td').find('.hdfrowid')[0].value;
+  $("#hdfsignedrowid_assessmentconduct").val(selected_id);  
+        }
+        else {
+            return false;
+        }
+});
+    
+    function ValidateSubmitForm(){
+
+    }
+  </script>
+{% endblock customscript %}

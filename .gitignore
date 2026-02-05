@@ -1,13 +1,74 @@
-.venv
-.vscode
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.sqlite3
+*.py[cod]
+*$py.class
+
+# Django specific
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
 media/
-staticfiles/
+
+# Environments
+.venv/
+venv/
+ENV/
+env/
+bin/
+lib/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.installed.cfg
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Secret files
 .env
-.DS_Store
+.secrets
+
+# Static files (if you want to ignore collected assets)
+static/
+
+
+# Logs
 *.log
-*.pot
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# MyPy cache
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre cache
+.pyre/
+
+# Editor specific (Optional but recommended)
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store

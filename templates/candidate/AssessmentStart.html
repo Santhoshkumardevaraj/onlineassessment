@@ -1,0 +1,132 @@
+{% extends "PartialTemplates/CandidateBase.html" %}
+{% block pagetitle %}
+    {{ pagetitle }}
+{% endblock pagetitle %}
+{% block customstyles %}<style type="text/css"></style>{% endblock %}
+{% block maincontent %}
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="fa fa-home"></i> Candidate <i class="fa fa-chevron-right"></i> Start Assessment
+                </li>
+            </ol>
+        </nav>
+        {% if assigned_assessment %}
+            <div class="row mt1">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h4 class="text-center header1">Start Assessment</h4>
+                </div>
+            </div>
+            <div class="row mt1">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <p class="text-bold">Candidate Instructions to be followed during the assessment</p>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="fas fa-check-circle"></i> Ensure a stable internet connection. Interruptions may cause your session to freeze or submit automatically.
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i> Close all other applications and browser tabs to avoid distractions or automatic logouts.
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i> Do not refresh or close the browser window once the assessment begins.
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i> Read each question carefully before answering.
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i> You may navigate between questions using the "Next" and "Previous" buttons.
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i> Timer: The assessment is timed. The remaining time will be displayed on your screen. The system will auto-submit your answers when time expires.
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i> Do not switch tabs, minimize the browser, or open new windows. Multiple tab switches may be recorded or lead to disqualification.
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i> If you experience a technical issue, contact the support team immediately (provide your candidate ID and time of issue).
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i> Review your answers before clicking Submit. Once submitted, you cannot reattempt the assessment.
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i> You will see a confirmation message after successful submission. Results and feedback will be shared as per the organization’s communication policy.
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i> This assessment is to be taken individually and honestly. Any attempt to cheat, impersonate, or use unauthorized materials will result in disqualification.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row mt1">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="custom-control custom-checkbox text-center">
+                            <input class="custom-control-input" type="checkbox" id="agreeinstructions">
+                            <label for="agreeinstructions" class="custom-control-label">I have read and agree to the above instructions.</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt1">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Sno</th>
+                                    <th>Assessment</th>
+                                    <th>Date</th>
+                                    <th>Start</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>{{ assigned_assessment.assessment }}</td>
+                                    <td>{{ assigned_assessment.assessment_date|date:"Y-m-d" }}</td>
+                                    <td>
+                                        {% if assessment_start_continue == "start" %}
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-success btnstartassessment"
+                                                    name="ActionName"
+                                                    value="startassessment">START</button>
+                                        {% else %}
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-success btnstartassessment"
+                                                    name="ActionName"
+                                                    value="continueassessment">CONTINUE</button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        {% else %}
+            <div class="row mt1">
+                <h3 class="text-danger">
+                    No assessment assigned. please try again later!!! <a id="lnklogout" class="btn btn-primary" href="{% url 'logout' %}">Sign out</a>
+                </h3>
+            </div>
+        {% endif %}
+    </div>
+{% endblock maincontent %}
+{% block customscript %}
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('.spanloading').show();
+    });   
+
+    $('body').on('click','.btnstartassessment',function(e){
+        const candidate_agree=$('#agreeinstructions').is(":checked");
+        if(!candidate_agree){
+            e.preventDefault(); // Stop form from submitting
+    alert('Please check "I have read and agree to the above instructions" before proceeding.');
+    $('#agreeinstructions').focus();
+        }
+    });    
+    </script>
+{% endblock customscript %}

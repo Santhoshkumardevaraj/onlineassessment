@@ -16,10 +16,22 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
+from django.views.generic import RedirectView
+from apps.assessment_admin.views.Login import login_view,logout_view,changepassword_view
 
 app_name = "onlineassessment"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+     path("onlineassessment/", RedirectView.as_view(pattern_name="login", permanent=False)),
+    path("", RedirectView.as_view(pattern_name="login", permanent=False)),
+    path('', RedirectView.as_view(url='onlineassessment/login/', permanent=False)),    
+    path('onlineassessment/login/', login_view, name='login'),
+    path('onlineassessment/changepassword/', changepassword_view, name='changepassword'),   
+    path('onlineassessment/logout/', logout_view, name='logout'),
+    
+    path('onlineassessment/assesspanel/', include('apps.assessment_admin.urls')),
+    path('onlineassessment/candidatepanel/', include('apps.assessment_candidate.urls')),
+    path('onlineassessment/onlineassessmentapi/', include('apps.assessment_api.urls')),
 ]
